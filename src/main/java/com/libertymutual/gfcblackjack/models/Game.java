@@ -17,7 +17,8 @@ public class Game {
 	}
 	
 	public void dealCards(Player player, int numCards) {
-		player.hand.addCard(deck.getCards(numCards));
+		player.hand.addCards(deck.getCards(numCards));
+		player.hand.getCardValues();
 		
 	}
 }
