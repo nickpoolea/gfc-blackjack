@@ -44,7 +44,9 @@ public class Deck {
 	public void printDeck() {
 		System.out.println("Cards-------------");
 		for (int i = 0; i < deck.size(); i++) {
-			System.out.println(deck.get(i).getName() + " " + deck.get(i).getValue()[0] + " " + deck.get(i).getValue()[1]);
+			System.out.println(deck.get(i).getName() + " " 
+							 + deck.get(i).getValue()[0] 
+						     + " " + deck.get(i).getValue()[1]);
 		}
 	}
 
