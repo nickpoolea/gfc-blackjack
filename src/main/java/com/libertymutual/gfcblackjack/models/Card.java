@@ -11,11 +11,11 @@ public class Card {
 		this.value = value;
 	}
 
-	protected String getName() {
+	public String getName() {
 		return name;
 	}
 
-	protected int[] getValue() {
+	public int[] getValue() {
 		return value;
 	}
 }

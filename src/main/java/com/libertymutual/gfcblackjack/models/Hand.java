@@ -4,17 +4,20 @@ import java.util.Stack;
 
 public class Hand {
 
-	Stack<Card> cards;
+	public Stack<Card> cards;
 	
 	public Hand() {
 		cards = new Stack<Card>();
 	}
 	
-	public void addCard(Card card) {
-		this.cards.push(card);
+	public void addCard(Stack<Card> cardsToAdd) {
+		for (Card c: cardsToAdd) {
+			this.cards.push(c);
+
+		}
 	}
 	
-	public int[] countCardValue() {
+	public int[] getCardValue() {
 		int[] cardValues = new int[2];
 		for (Card card: cards) {
 			cardValues[0] += card.getValue()[0];

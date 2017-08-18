@@ -12,16 +12,21 @@
 	</head>
 	<body>
 		<div class="dealer cards">
-		Dealer Cards:
+		Dealer Cards:{{#dealerCards}}
+									<div>{{name}}</div>
+									{{/dealerCards}}
 		</div>
+		<br>
 		<div class="player cards">
-		Player Cards: {{#player1Hand}}
-									{{.cardValue}}
-									{{/player1Hand}}
+		Player Cards: {{#playerCards}}
+									<div>{{name}}</div>
+									{{/playerCards}}
 		</div>
+		<br>
 		<div class="player money">
 		Player Money:
 		</div>
+		<br>
 		<form action="/hit">
 			<button>Hit</button>
 		</form>

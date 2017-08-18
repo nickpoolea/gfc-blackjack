@@ -11,7 +11,7 @@ public class Deck {
 		deck = new Stack<Card>();
 	}
 
-	public void createDeck() {
+	public Stack<Card> createDeck() {
 		String[] suits = { "Hearts", "Spades", "Clubs", "Diamonds" };
 		String[] faceCards = { "King", "Queen", "Jack" };
 
@@ -33,8 +33,9 @@ public class Deck {
 			// Create the aces
 			int[] valueArray = { 11, 1 };
 			deck.push(new Card("Ace" + " of " + suits[i], valueArray));
-
 		}
+		
+		return deck;
 	}
 
 	public void shuffleDeck() {
@@ -48,6 +49,17 @@ public class Deck {
 							 + deck.get(i).getValue()[0] 
 						     + " " + deck.get(i).getValue()[1]);
 		}
+	}
+		
+	public Stack<Card> getCards(int numCards) {
+		Stack<Card> cards = new Stack<Card>();
+		for (int i = 0; i < numCards; i++) {
+			cards.push(deck.pop());
+		}
+		
+		return cards;
+	
+		
 	}
 
 }
