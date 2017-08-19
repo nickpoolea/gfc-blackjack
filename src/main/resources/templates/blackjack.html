@@ -1,0 +1,24 @@
+<h1>Blackjack!</h1>
+<p>
+<div>
+Player Points:
+									 {{#playerValues}}
+									 {{.}}
+									 {{/playerValues}}
+									 {{#playerValuesOther}}
+									 Or {{.}}
+									 {{/playerValuesOther}}
+</div>
+<div>
+Dealer Points:						 
+{{#dealerValues}}
+									 {{.}}
+									 {{/dealerValues}}
+									 {{#dealerValuesOther}}
+									 Or {{.}}
+									 {{/dealerValuesOther}}
+</div>
+</p>
+<form method="post" action="reset">
+<button>Continue</button>
+</form>

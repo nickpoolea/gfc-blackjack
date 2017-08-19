@@ -13,12 +13,21 @@ public class GfcBlackjackApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GfcBlackjackApplication.class, args);
 		
-//		Game game = new Game();
-//		game.dealCards(game.player, 2);
-//		
-//		for (Card c: game.player.hand.cards) {
-//			System.out.println(c.getName());
-//		}
+	Game game = new Game();
+		game.dealCards(game.player, 2);
+		
+		System.out.println("Cards------------");
+		for (Card c: game.player.hand.cards) {
+			System.out.println(c.getName());
+		}
+		
+		game.player.hand.clearHand();
+		
+		System.out.println("Cards------------");
+		for (Card c: game.player.hand.cards) {
+			System.out.println(c.getName());
+		}
+		
 	}
 
 }

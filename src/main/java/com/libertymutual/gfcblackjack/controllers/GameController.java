@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.libertymutual.gfcblackjack.models.Card;
 import com.libertymutual.gfcblackjack.models.Game;
 
 @Controller
@@ -29,54 +28,45 @@ public class GameController {
 		return mv;
 	}
 	
+
 	@PostMapping("/play")
 	public ModelAndView playGame() {
-		ModelAndView mv = new ModelAndView("/play");
 		game.dealCards(game.player, 2);
 		game.dealCards(game.dealer, 2);
-		mv.addObject("playerCards", game.player.hand.cards);
-		mv.addObject("dealerCards", game.dealer.hand.cards);
-		mv.addObject("playerValues", game.player.hand.cardValues[0]);
-		mv.addObject("dealerValues", game.dealer.hand.cardValues[0]);
-		
-		if (game.player.hand.hasAce) {
-			mv.addObject("playerValuesOther", game.player.hand.cardValues[1]);
-		}
-		else if (game.dealer.hand.hasAce ) {
-			mv.addObject("dealerValuesOther", game.dealer.hand.cardValues[1]);
-		}
-
-		
+		ModelAndView mv = game.getModelAndView();
 		return mv;
 	}
 	
-	@GetMapping("/play")
-	public String playMapping() {
-		return"/play";
+	@GetMapping("/play") 
+	public ModelAndView playGetMapping() {
+		ModelAndView mv = game.getModelAndView();
+		return mv;
 	}
 	
 	
 	@PostMapping("/hit")
 	public ModelAndView hit() {
-		ModelAndView mv = new ModelAndView("play");
 		game.dealCards(game.player, 1);
-		mv.addObject("playerCards", game.player.hand.cards);
-		mv.addObject("dealerCards", game.dealer.hand.cards);
-		mv.addObject("playerValues", game.player.hand.cardValues[0]);
-		mv.addObject("dealerValues", game.dealer.hand.cardValues[0]);
-		
-		if (game.player.hand.hasAce) {
-			mv.addObject("playerValuesOther", game.player.hand.cardValues[1]);
-		}
-		else if (game.dealer.hand.hasAce ) {
-			mv.addObject("dealerValuesOther", game.dealer.hand.cardValues[1]);
-		}
+		ModelAndView mv = game.getModelAndView();
 		return mv;
 	}
 	
 	@PostMapping("/stand")
-	public String stand() {
-		return "";
+	public ModelAndView stand() {
+		game.autoDealer();
+		game.player.hasStood = true;
+		ModelAndView mv = game.getModelAndView();
+		return mv;
+	}
+	
+	@PostMapping("/reset")
+	public String resetGame() {
+		game.player.hand.clearHand();
+		game.dealer.hand.clearHand();
+		game.player.hasStood = false;
+		game.dealCards(game.player, 2);
+		game.dealCards(game.dealer, 2);
+		return "redirect:/play";
 	}
 	
 	

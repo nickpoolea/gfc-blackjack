@@ -33,4 +33,26 @@ public class Hand {
 		return cardValues;
 	}
 	
+	public boolean checkBust() {
+		
+		if (getCardValues()[0]> 21 && getCardValues()[1] > 21) {
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean checkBlackjack() {
+		if (getCardValues()[0] == 21 || getCardValues()[1] == 21) {
+			return true;
+		}
+		else return false;
+	}
+	
+	public void clearHand() {
+		while (cards.size() > 0){
+			cards.pop();
+		}
+		
+	}
+	
 }
