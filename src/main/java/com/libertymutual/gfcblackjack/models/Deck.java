@@ -5,10 +5,12 @@ import java.util.Stack;
 
 public class Deck {
 
-	Stack<Card> deck;
+	Stack<Card> cards;
+	Stack<Card> usedCards;
 
 	public Deck() {
-		deck = new Stack<Card>();
+		cards = new Stack<Card>();
+		usedCards = new Stack<Card>();
 	}
 
 	public Stack<Card> createDeck() {
@@ -21,45 +23,53 @@ public class Deck {
 			// Create the numeric cards.
 			for (int j = 2; j <= 10; j++) {
 				int[] valueArray = new int[] { j, j };
-				deck.push(new Card(j + " of " + suits[i], valueArray));
+				cards.push(new Card(j + " of " + suits[i], valueArray, false));
 			}
 
 			// Create the face cards.
 			for (int j = 0; j < faceCards.length; j++) {
 				int[] valueArray = { 10, 10 };
-				deck.push(new Card(faceCards[j] + " of " + suits[i], valueArray));
+				cards.push(new Card(faceCards[j] + " of " + suits[i], valueArray, false));
 			}
 
 			// Create the aces
 			int[] valueArray = { 11, 1 };
-			deck.push(new Card("Ace" + " of " + suits[i], valueArray));
-		}
-		
-		return deck;
-	}
-
-	public void shuffleDeck() {
-		Collections.shuffle(deck);
-	}
-
-	public void printDeck() {
-		System.out.println("Cards-------------");
-		for (int i = 0; i < deck.size(); i++) {
-			System.out.println(deck.get(i).getName() + " " 
-							 + deck.get(i).getValue()[0] 
-						     + " " + deck.get(i).getValue()[1]);
-		}
-	}
-		
-	public Stack<Card> getCards(int numCards) {
-		Stack<Card> cards = new Stack<Card>();
-		for (int i = 0; i < numCards; i++) {
-			cards.push(deck.pop());
+			cards.push(new Card("Ace" + " of " + suits[i], valueArray, false));
 		}
 		
 		return cards;
-	
+	}
+
+	public void shuffleDeck(Stack<Card> cards) {
+		Collections.shuffle(cards);
+	}
+
 		
+	public Stack<Card> getCards(int numCards, boolean isHidden) {
+		Stack<Card> cards = new Stack<Card>();
+		for (int i = 0; i < numCards; i++) {
+			if (this.cards.size() == 0) {
+				repopulateDeck();
+			}
+		
+			Card usedCard = this.cards.pop();
+			usedCard.isHidden = isHidden;
+			cards.push(usedCard);
+			usedCards.push(usedCard);
+		}
+		
+		return cards;
+	}
+	
+	private void repopulateDeck() {
+		shuffleDeck(usedCards);
+		while (usedCards.size() > 0) {
+			cards.push(usedCards.pop());
+		}
+	}
+	
+	public int getSize() {
+		return cards.size();
 	}
 
 }

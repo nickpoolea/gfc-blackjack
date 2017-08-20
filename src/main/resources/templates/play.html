@@ -11,29 +11,39 @@
 		
 	</head>
 	<body>
+	<div>
+	<b>Cards Left:</b> 
+							{{#deck}}
+							{{size}}
+							{{/deck}}</div>
+	<br>
+							
 		<div class="dealer cards">
-		Dealer Cards:{{#dealerCards}}
+		<b>Dealer Cards: </b>
+								{{#dealerCards}}
 						<div>{{name}}</div>
 								 {{/dealerCards}}
 		</div>
 		<br>
 		<div class="player points">
-		Player Points: {{#playerValues}}
-									 {{.}}
-									 {{/playerValues}}
-									 {{#playerValuesOther}}
-									 Or {{.}}
-									 {{/playerValuesOther}}
+		<b>Player Points: 
+				{{#playerHand}}
+				{{cardValues}}
+				{{/playerHand}}</b> 
 		</div>
 		<br>
 		<div class="player cards">
-		Player Cards: {{#playerCards}}
+		<b>Player Cards:</b> {{#playerCards}}
 						 <div>{{name}}</div>
 									{{/playerCards}}
 		</div>
 		<br>
 		<div class="player money">
-		Player Money:
+		<b>Player Money:
+			{{#player}}
+			{{money}}
+			{{/player}}</b>
+			
 		</div>
 		<br>
 		<form action="/hit" method="post">

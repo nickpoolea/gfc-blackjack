@@ -2,17 +2,22 @@ package com.libertymutual.gfcblackjack.models;
 
 public class Card {
 
-	String name;
-	int[] value;
+	public String name;
+	public int[] value;
+	public boolean isHidden;
 
-	public Card(String name, int[] value) {
-
+	public Card(String name, int[] value, boolean isHidden) {
+		
+		this.isHidden = isHidden;
 		this.name = name;
 		this.value = value;
 	}
 
 	public String getName() {
-		return name;
+		if (isHidden) {
+			return "?";
+		}
+		else return name;
 	}
 
 	public int[] getValue() {

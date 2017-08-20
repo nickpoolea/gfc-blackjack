@@ -5,7 +5,10 @@
 	</head>
 	<body>
 	<h1>Place your bet</h1>
-	<h3>Available Funds: {{money}}</h3>
+	<h3>Available Funds: 
+			{{#player}}
+			{{money}}
+			{{/player}}</h3>
 		<form method="post" action="/play">
 			<input type="number" name="bet">
 			<button>Place Bet</button>

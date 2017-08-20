@@ -2,23 +2,29 @@
 <p>
 <div>
 Player Points:
-									 {{#playerValues}}
-									 {{.}}
-									 {{/playerValues}}
-									 {{#playerValuesOther}}
-									 Or {{.}}
-									 {{/playerValuesOther}}
+									 {{#playerHand}}
+									 {{cardValues}}
+									 {{/playerHand}}
 </div>
 <div>
 Dealer Points:						 
-{{#dealerValues}}
-									 {{.}}
-									 {{/dealerValues}}
-									 {{#dealerValuesOther}}
-									 Or {{.}}
-									 {{/dealerValuesOther}}
+				{{#dealerHand}}
+				{{cardValues}}
+				{{/dealerHand}}
 </div>
 </p>
+<div class="dealer cards">
+		<b>Player Cards: </b>
+								{{#playerCards}}
+						<div>{{name}}</div>
+								 {{/playerCards}}
+		</div>
+<div class="dealer cards">
+		<b>Dealer Cards: </b>
+								{{#dealerCards}}
+						<div>{{name}}</div>
+								 {{/dealerCards}}
+		</div>
 <form method="post" action="reset">
 <button>Continue</button>
 </form>

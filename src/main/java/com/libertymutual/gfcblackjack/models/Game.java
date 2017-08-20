@@ -7,61 +7,71 @@ public class Game {
 	public Deck deck;
 	public Player player;
 	public Player dealer;
-	public ModelAndView mv;
+	public ModelAndView mvGame;
 
 	public Game() {
 	
 		deck = new Deck();
 		deck.createDeck();
-		deck.shuffleDeck();
-				
-		player= new Player();
+		deck.shuffleDeck(deck.cards);		
+		player = new Player();
 		dealer = new Player();
 	}
 	
-	public void dealCards(Player player, int numCards) {
-		player.hand.addCards(deck.getCards(numCards));
+	
+	public void dealCards(Player player, int numCards, boolean isHidden) {
+		player.hand.addCards(deck.getCards(numCards, isHidden));
 		player.hand.getCardValues();
-		mv = new ModelAndView();
+		mvGame = new ModelAndView();
 		
 	}
 	
 	public ModelAndView getModelAndView() {
-		mv.setViewName(checkGame());
-		mv.addObject("playerCards", player.hand.cards);
-		mv.addObject("dealerCards", dealer.hand.cards);
-		mv.addObject("playerValues", player.hand.cardValues[0]);
-		mv.addObject("dealerValues", dealer.hand.cardValues[0]);
+		mvGame.setViewName(checkGame());
+		mvGame.addObject("player", player);
+		mvGame.addObject("dealer", dealer);
+		mvGame.addObject("playerHand", player.hand);
+		mvGame.addObject("dealerHand", dealer.hand);
+		mvGame.addObject("playerCards", player.hand.cards);
+		mvGame.addObject("dealerCards", dealer.hand.cards);
+		mvGame.addObject("deck", deck);
 		
-		if (player.hand.hasAce) {
-			mv.addObject("playerValuesOther", player.hand.cardValues[1]);
-		}
-		else if (dealer.hand.hasAce ) {
-			mv.addObject("dealerValuesOther", dealer.hand.cardValues[1]);
-		}
-		return mv;
+		
+		return mvGame;
 	}
 	
 	public String checkGame() {
 		
+		if (player.getMoney() <= 0) {
+			return "end";
+		}
 		if (player.hand.checkBust()) {
 			return "bust";
 		}
-		else if (player.hand.checkBlackjack() ) {
+		else if (player.hand.checkBlackjack() && !dealer.hand.checkBlackjack() ) {
+			player.winBet(2.5);
 			return "blackjack";
 		}
-		else if((player.hand.getCardValues()[0] > dealer.hand.getCardValues()[0]) && player.hasStood) {
+		else if (player.hand.checkBlackjack() && dealer.hand.checkBlackjack() ) {
+			return "blackjack";
+		}
+		else if (!player.hand.checkBust() && dealer.hand.checkBust()) {
+			player.winBet(2);
 			return "win";
 		}
-		else if(player.hasStood) {
+		else if ((player.hand.getCardValues() > dealer.hand.getCardValues()) && player.getStood()) {
+			player.winBet(2);
+			return "win";
+		}
+		else if(player.getStood()) {
 			return "lose";
 		}
 		else return "play";
 	}
 	
-	public void autoDealer() {
-		while (dealer.hand.getCardValues()[0] < 17 || dealer.hand.getCardValues()[1] < 17) {
-			dealCards(dealer, 1);
+	public void autoDeal(Player player) {
+		while (player.hand.getCardValues() < 17 || player.hand.getCardValues() < 17) {
+			dealCards(player, 1, false);
 		}
 	}
 }

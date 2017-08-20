@@ -13,61 +13,62 @@ import com.libertymutual.gfcblackjack.models.Game;
 public class GameController {
 	
 	Game game;
-
+	ModelAndView mvController;
 
 	@GetMapping("")
-	public String promptGameBegin() {
+	public String promptAndInitializeGame() {
+		game = new Game();
 		return "index";
 	}
 	
-	@PostMapping("/place-bet")
-	public ModelAndView placeBet() {
-		game = new Game();
-		ModelAndView mv = new ModelAndView("place-bet");
-		mv.addObject("money", game.player.money);
-		return mv;
+	@PostMapping("place-bet")
+	public ModelAndView initializeGamePromptBegin() {
+		mvController = new ModelAndView("place-bet");
+		mvController.addObject("player", game.player);
+		return mvController;
 	}
 	
+	@GetMapping("place-bet")
+	public ModelAndView placeBet() {
+		mvController = game.getModelAndView();
+		System.out.println(game.player.hand.cards.size());
+		mvController.setViewName("place-bet");
+		return mvController;
+	}
 
 	@PostMapping("/play")
-	public ModelAndView playGame() {
-		game.dealCards(game.player, 2);
-		game.dealCards(game.dealer, 2);
-		ModelAndView mv = game.getModelAndView();
-		return mv;
-	}
-	
-	@GetMapping("/play") 
-	public ModelAndView playGetMapping() {
-		ModelAndView mv = game.getModelAndView();
-		return mv;
+	public ModelAndView playGame(int bet) {
+		game.dealCards(game.player, 2, false);
+		game.dealCards(game.dealer, 1, true);
+		game.dealCards(game.dealer, 1, false);
+		game.player.setBet(bet);
+		return game.getModelAndView();
 	}
 	
 	
 	@PostMapping("/hit")
 	public ModelAndView hit() {
-		game.dealCards(game.player, 1);
+		game.dealCards(game.player, 1, false);
 		ModelAndView mv = game.getModelAndView();
 		return mv;
 	}
 	
 	@PostMapping("/stand")
 	public ModelAndView stand() {
-		game.autoDealer();
-		game.player.hasStood = true;
+		game.autoDeal(game.dealer);
+		game.player.setStood(true); 
 		ModelAndView mv = game.getModelAndView();
 		return mv;
 	}
 	
 	@PostMapping("/reset")
 	public String resetGame() {
+		System.out.println("Yup-----------------------");
 		game.player.hand.clearHand();
 		game.dealer.hand.clearHand();
-		game.player.hasStood = false;
-		game.dealCards(game.player, 2);
-		game.dealCards(game.dealer, 2);
-		return "redirect:/play";
+		System.out.println(game.player.hand.cards.size());
+		game.player.setStood(false);
+		return "redirect:place-bet";
 	}
-	
-	
+		
 }
