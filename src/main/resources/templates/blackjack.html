@@ -1,30 +1,51 @@
-<h1>Blackjack!</h1>
-<p>
-<div>
-Player Points:
-									 {{#playerHand}}
-									 {{cardValues}}
-									 {{/playerHand}}
-</div>
-<div>
-Dealer Points:						 
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Blackjack</title>	
+	</head>
+	<body>
+		<h1>You Win - Blackjack</h1>
+		<br>
+		<div>
+			<b>
+				Player Points:
+				{{#playerHand}}
+				{{handValue}}
+				{{/playerHand}}
+			</b>
+		</div>
+		<br>
+		
+		<div>
+			<b>
+				Dealer Points:						 
 				{{#dealerHand}}
-				{{cardValues}}
+				{{handValue}}
 				{{/dealerHand}}
-</div>
-</p>
-<div class="dealer cards">
-		<b>Player Cards: </b>
-								{{#playerCards}}
-						<div>{{name}}</div>
-								 {{/playerCards}}
+			</b>
 		</div>
-<div class="dealer cards">
-		<b>Dealer Cards: </b>
-								{{#dealerCards}}
-						<div>{{name}}</div>
-								 {{/dealerCards}}
+		<br>
+	
+		<div>
+			<b>Player Cards: </b>
+				{{#playerCards}}
+				<div>{{name}}</div>
+				{{/playerCards}}
 		</div>
-<form method="post" action="reset">
-<button>Continue</button>
-</form>
+		<br>
+				
+		<div>
+			<b>Dealer Cards: </b>
+				{{#dealerCards}}
+				<div>{{name}}</div>
+				{{/dealerCards}}
+		</div>
+		<br>
+		
+		<form method="post" action="reset">
+		<button>Continue</button>
+		</form>
+	</body>
+</html>
+		
+		

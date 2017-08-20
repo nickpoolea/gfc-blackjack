@@ -13,6 +13,7 @@ public class Deck {
 		usedCards = new Stack<Card>();
 	}
 
+	
 	public Stack<Card> createDeck() {
 		String[] suits = { "Hearts", "Spades", "Clubs", "Diamonds" };
 		String[] faceCards = { "King", "Queen", "Jack" };
@@ -39,6 +40,7 @@ public class Deck {
 		
 		return cards;
 	}
+	
 
 	public void shuffleDeck(Stack<Card> cards) {
 		Collections.shuffle(cards);
@@ -47,6 +49,7 @@ public class Deck {
 		
 	public Stack<Card> getCards(int numCards, boolean isHidden) {
 		Stack<Card> cards = new Stack<Card>();
+		
 		for (int i = 0; i < numCards; i++) {
 			if (this.cards.size() == 0) {
 				repopulateDeck();
@@ -61,12 +64,14 @@ public class Deck {
 		return cards;
 	}
 	
+	
 	private void repopulateDeck() {
 		shuffleDeck(usedCards);
 		while (usedCards.size() > 0) {
 			cards.push(usedCards.pop());
 		}
 	}
+	
 	
 	public int getSize() {
 		return cards.size();

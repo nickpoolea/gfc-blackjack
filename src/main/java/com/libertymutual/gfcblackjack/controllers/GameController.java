@@ -49,21 +49,18 @@ public class GameController {
 	@PostMapping("/hit")
 	public ModelAndView hit() {
 		game.dealCards(game.player, 1, false);
-		ModelAndView mv = game.getModelAndView();
-		return mv;
+		return game.getModelAndView();
 	}
 	
 	@PostMapping("/stand")
 	public ModelAndView stand() {
 		game.autoDeal(game.dealer);
 		game.player.setStood(true); 
-		ModelAndView mv = game.getModelAndView();
-		return mv;
+		return game.getModelAndView();
 	}
 	
 	@PostMapping("/reset")
 	public String resetGame() {
-		System.out.println("Yup-----------------------");
 		game.player.hand.clearHand();
 		game.dealer.hand.clearHand();
 		System.out.println(game.player.hand.cards.size());

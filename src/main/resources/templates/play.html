@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Blackjack</title>
-		
-		<script>
-			* {
-				display: block;
-			}
-		</script>
-		
+		<title>Blackjack</title>	
 	</head>
+	
 	<body>
-	<div>
-	<b>Cards Left:</b> 
-							{{#deck}}
-							{{size}}
-							{{/deck}}</div>
-	<br>
-							
-		<div class="dealer cards">
-		<b>Dealer Cards: </b>
-								{{#dealerCards}}
-						<div>{{name}}</div>
-								 {{/dealerCards}}
+		<div>
+			<b>Cards Left:</b> 
+				 {{#deck}}
+				 {{size}}
+				 {{/deck}}
 		</div>
 		<br>
+							
+		<div class="dealer cards">
+		<b>Dealer Cards:</b>
+			 {{#dealerCards}}
+	<div>{{name}}</div>
+			 {{/dealerCards}}
+		</div>
+		<br>
+	
+		<div class="player cards">
+		<b>Player Cards:</b>
+		   {{#playerCards}}
+	<div>{{name}}</div>
+			 {{/playerCards}}
+		</div>
+		<br>
+			
 		<div class="player points">
 		<b>Player Points: 
 				{{#playerHand}}
-				{{cardValues}}
+				{{handValue}}
 				{{/playerHand}}</b> 
 		</div>
 		<br>
-		<div class="player cards">
-		<b>Player Cards:</b> {{#playerCards}}
-						 <div>{{name}}</div>
-									{{/playerCards}}
-		</div>
-		<br>
+		
 		<div class="player money">
 		<b>Player Money:
-			{{#player}}
-			{{money}}
-			{{/player}}</b>
-			
+			 {{#player}}
+			 {{money}}
+			 {{/player}}</b>	
 		</div>
 		<br>
-		<form action="/hit" method="post">
+		
+		<div class="player bet">
+		<b>Player Bet:
+			 {{#player}}
+			 {{bet}}
+			 {{/player}}</b>	
+		</div>
+		<br>
+		
+		<form action="hit" method="post">
 			<button>Hit</button>
 		</form>
 		<form action="stand" method="post">
