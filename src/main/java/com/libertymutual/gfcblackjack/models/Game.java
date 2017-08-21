@@ -10,7 +10,7 @@ public class Game {
 	public Player player;
 	public Player dealer;
 	private ModelAndView mvGame;
-	private boolean roundIsOver;
+	public boolean roundIsOver;
 	String playerGameStatus;
 
 
