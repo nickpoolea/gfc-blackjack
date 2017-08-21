@@ -17,16 +17,6 @@
 		<br>
 		
 		<div>
-			<b>
-				Dealer Points:						 
-				{{#dealerHand}}
-				{{handValue}}
-				{{/dealerHand}}
-			</b>
-		</div>
-		<br>
-	
-		<div>
 			<b>Player Cards: </b>
 				{{#playerCards}}
 				<div>{{name}}</div>
@@ -34,14 +24,6 @@
 		</div>
 		<br>
 				
-		<div>
-			<b>Dealer Cards: </b>
-				{{#dealerCards}}
-				<div>{{name}}</div>
-				{{/dealerCards}}
-		</div>
-		<br>
-		
 		<form method="post" action="reset">
 		<button>Continue</button>
 		</form>

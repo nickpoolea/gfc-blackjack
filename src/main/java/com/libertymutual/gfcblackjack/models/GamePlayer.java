@@ -1,7 +1,7 @@
 package com.libertymutual.gfcblackjack.models;
 
 
-public class Player {
+public class GamePlayer extends Player {
 	
 	public Hand hand;
 	private int money = 100;
@@ -9,23 +9,17 @@ public class Player {
 	private int bet;
 	private boolean isBetting = false;
 	
-	public Player() {
-		hand = new Hand();
-	}
 
 	public void winBet(double multiplier) {
 		money += (bet * multiplier);
 	}
 	
-	public void setBet(int bet, boolean doubleDown) {
-		if (doubleDown) {
-			this.bet *= 2;
-		}
-		else if (bet > money) {
+	public void setBet(int bet) {
+		if (bet > money) {
 			this.bet = money;
 		}
 		else this.bet = bet;
-		money -= bet;
+		money -= this.bet;
 		isBetting = true;
 	}
 	

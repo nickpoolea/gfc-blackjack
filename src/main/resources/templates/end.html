@@ -1,5 +1,40 @@
 <h1>Game Over</h1>
 <h2>You're out of money</h2>
+<div>
+			<b>
+				Player Points:
+				{{#playerHand}}
+				{{handValue}}
+				{{/playerHand}}
+			</b>
+		</div>
+		<br>
+		
+		<div>
+			<b>
+				Dealer Points:						 
+				{{#dealerHand}}
+				{{handValue}}
+				{{/dealerHand}}
+			</b>
+		</div>
+		<br>
+	
+		<div>
+			<b>Player Cards: </b>
+				{{#playerCards}}
+				<div>{{name}}</div>
+				{{/playerCards}}
+		</div>
+		<br>
+				
+		<div>
+			<b>Dealer Cards: </b>
+				{{#dealerCards}}
+				<div>{{name}}</div>
+				{{/dealerCards}}
+		</div>
+		<br>
 <form method="get" action="/">
 <button>Play Again</button>
 </form>

@@ -22,7 +22,7 @@ public class GameController {
 	}
 	
 	@PostMapping("place-bet")
-	public ModelAndView initializeGamePromptBegin() {
+	public ModelAndView beginGamePlaceBet() {
 		mvController = new ModelAndView("place-bet");
 		mvController.addObject("player", game.player);
 		return mvController;
@@ -41,7 +41,7 @@ public class GameController {
 		game.dealCards(game.player, 2, false);
 		game.dealCards(game.dealer, 1, true);
 		game.dealCards(game.dealer, 1, false);
-		game.player.setBet(bet);
+		game.player.setBet(bet, false);
 		return game.getModelAndView();
 	}
 	
@@ -52,11 +52,17 @@ public class GameController {
 		return game.getModelAndView();
 	}
 	
+	
 	@PostMapping("/stand")
 	public ModelAndView stand() {
 		game.autoDeal(game.dealer);
 		game.player.setStood(true); 
 		return game.getModelAndView();
+	}
+	
+	@PostMapping("double-down")
+	public ModelAndView doubleDown() {
+		return game.doubleDownHandler();
 	}
 	
 	@PostMapping("/reset")

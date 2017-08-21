@@ -52,7 +52,7 @@ public class Hand {
 	
 	
 	public boolean checkBlackjack() {
-		if (getHandValue() == 21) {
+		if (getHandValue() == 21 && cards.size() == 2) {
 			return true;
 		}
 		else return false;
